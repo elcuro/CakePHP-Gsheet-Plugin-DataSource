@@ -1,0 +1,87 @@
+Very simple Google Spreadsheet API datasource for CakePHP with CRUD
+based on ZendGdata http://framework.zend.com/download/gdata
+
+Think about Google spreadsheet as classic database:
+- Google spreadsheet as database
+- Google sheet as table in database
+
+Your sheet must have first row with column names,
+in your application will be all names lowrcases and without
+spaces. Example: "All Surnames" will by "allsurnames"
+
+
+Install
+-------
+1. Download and install ZendGdata and add it to your include_path
+   e.g in boostrap.php
+2. Copy plugin to app/plugins/gsheet
+3. Config app/database.php, like bellow
+        var $gsheet = array(
+                'datasource' => 'Gsheet.Gsheet',
+                'user' => 'yourgoogleuser',
+                'psw' => 'yourgooglepassword',
+                'spreadsheet' => 'yourspreadsheetname'
+        );
+
+        // if you want tests
+        var $testgsheet = array(
+                'datasource' => 'Gsheet.Gsheet',
+                'user' => 'yourgoogleuser',
+                'psw' => 'yourgooglepassword',
+                'spreadsheet' => 'CakeTest'
+        );
+4. Configure your model
+        class YourModel extends AppModel {
+                public $name = 'YourModel';
+                // set datasource
+                public $useDbConfig = 'Gsheet';
+                // $useTable is name of sheet,
+                // required if your model name is other than
+                // yout sheet name
+                public $useTable = 'Sheet1';
+                // one column in your sheet with unique
+                // values is required, default name is 'id',
+                // you can change it by
+                public $primaryKey = 'yourPrimaryKeyCol';
+
+        }
+
+
+Usage
+-----
+// find all rows
+$YourModel->find('all');
+
+// find by query
+$YourModel->find('all', array('conditions' => array(
+        'query' => 'name=john and surname=smith')));
+
+// you can use 'count', 'first' also
+$YourModel->find('first');
+
+// add, id created
+$YourModel->save(array('name' => 'john'));
+
+// update
+$YourModel->save(array('id' => 1, 'name' => 'john'));
+
+// delete
+$YourModel->delete($id);
+
+
+Testing (Simpletest must be installed)
+----------------------------------------------
+1. Create test spreadsheet in docs.google.com named "CakeTest"
+2. Upload tests/fixtures/fixtures.csv to your google spreadsheet
+3. Rename it 'CakePHP Test'
+4. Don't remeber set up $testgsheet in your database.php
+5. Run tests in your browser e.g. www.example.com/test.php
+
+
+Todo
+----
+- find conditions like CakePHP
+
+
+
+
