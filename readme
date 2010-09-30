@@ -72,10 +72,9 @@ $YourModel->delete($id);
 Testing (Simpletest must be installed)
 ----------------------------------------------
 1. Create test spreadsheet in docs.google.com named "CakeTest"
-2. Upload tests/fixtures/fixtures.csv to your google spreadsheet
-3. Rename it 'CakePHP Test'
-4. Don't remeber set up $testgsheet in your database.php
-5. Run tests in your browser e.g. www.example.com/test.php
+2. Upload tests/fixtures/fixtures.csv to your google test spreadsheet
+3. Don't remeber set up $testgsheet in your database.php
+4. Run tests in your browser e.g. www.example.com/test.php
 
 
 Todo
